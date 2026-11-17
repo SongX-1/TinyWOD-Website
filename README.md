@@ -28,22 +28,13 @@ TinyWOD-Website/
 - Plain HTML5, CSS3, and vanilla JavaScript — no frameworks or build step.
 - No backend or database required.
 
-## Usage
+## Deploy to GitHub Pages
 
-Open `index.html` directly in a browser, or serve the folder with any static server:
+The site is a plain static page, so it can be published directly on GitHub Pages:
 
-```bash
-# Python 3
-python -m http.server 8000
-```
-
-Then visit <http://localhost:8000>.
-
-## GitHub Pages
-
-1. Push this folder to a GitHub repository (as the repo root, or under `docs/`).
-2. Go to **Settings → Pages** and set the source to the branch/folder containing `index.html`.
-3. The site will be published at `https://<user>.github.io/<repo>/`.
+1. Push this folder to a GitHub repository (as the repo root).
+2. Go to **Settings → Pages**, set **Source** to `Deploy from a branch`, and choose the `main` branch with the `/ (root)` directory.
+3. GitHub will build and publish the site at `https://<user>.github.io/<repo>/`.
 
 All image paths are relative (`figures/...`), so the site works at any base path.
 
