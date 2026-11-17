@@ -1,0 +1,548 @@
+/* ============================================================
+   TinyWOD — Academic Project Page
+   Clean, professional, single-page static website
+   ============================================================ */
+
+:root {
+  --text: #333333;
+  --text-strong: #1a1a1a;
+  --muted: #666666;
+  --accent: #1a56db;       /* blue accent */
+  --accent-hover: #1747b8;
+  --border: #e2e2e2;
+  --table-head-bg: #f4f5f7;
+  --max-width: 1000px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* offset for sticky nav */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Navigation ---------- */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-brand {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--text-strong);
+  letter-spacing: 0.01em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 6px 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  background: #f0f4fb;
+}
+
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------- Layout ---------- */
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 56px 0 8px;
+  scroll-margin-top: 72px;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+p {
+  margin: 0 0 16px;
+}
+
+.section-intro {
+  font-size: 17px;
+  color: var(--muted);
+}
+
+a {
+  color: var(--accent);
+}
+
+/* ---------- Header / Hero ---------- */
+
+.hero {
+  text-align: center;
+  padding-top: 72px;
+}
+
+.project-title {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--text-strong);
+  margin: 0 0 12px;
+  letter-spacing: 0.01em;
+}
+
+.paper-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 auto 24px;
+  max-width: 820px;
+  line-height: 1.4;
+}
+
+.authors {
+  font-size: 17px;
+  color: var(--text);
+  margin: 0 0 6px;
+  line-height: 1.6;
+}
+
+.affiliation {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 0 0 32px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 9px 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.abstract {
+  text-align: left;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-top: 8px;
+}
+
+.abstract p {
+  margin: 0;
+  color: #444;
+}
+
+/* ---------- Figures ---------- */
+
+.figure {
+  margin: 28px 0;
+  text-align: center;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Wider figures may use more of the content width */
+.figure-wide img {
+  width: 100%;
+}
+
+.figure figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- Tables ---------- */
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  min-width: 480px;
+}
+
+.data-table thead th {
+  background: var(--table-head-bg);
+  color: var(--text-strong);
+  font-weight: 600;
+  text-align: left;
+  padding: 11px 14px;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+.data-table tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table .total-row td {
+  font-weight: 700;
+  color: var(--text-strong);
+  border-top: 2px solid var(--border);
+}
+
+/* Numeric alignment for the benchmark table */
+.benchmark-table thead th:not(:first-child),
+.benchmark-table tbody td:not(:first-child) {
+  text-align: right;
+}
+
+/* Best results (bold, per the paper) */
+.data-table .best {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Split table: right-align the Images column */
+.split-table th:last-child,
+.split-table td:last-child {
+  text-align: right;
+}
+
+/* ---------- Authors ---------- */
+
+.authors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 8px;
+  align-items: stretch;
+}
+
+.author-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden; /* contain the floated photo */
+}
+
+.author-photo {
+  float: left;
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #f4f5f7;
+  margin: 0 16px 10px 0;
+  display: block;
+}
+
+.author-info {
+  min-width: 0;
+}
+
+.author-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 6px;
+}
+
+.author-bio {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+  text-align: justify;
+}
+
+@media (max-width: 900px) {
+  .authors-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .author-card {
+    text-align: center;
+  }
+
+  .author-photo {
+    float: none;
+    width: 160px;
+    height: 213px;
+    margin: 0 auto 12px;
+  }
+
+  .author-bio {
+    text-align: left;
+  }
+}
+
+/* ---------- Format list ---------- */
+
+.format-list {
+  margin: 0 0 24px;
+  padding-left: 22px;
+}
+
+.format-list li {
+  margin-bottom: 6px;
+}
+
+/* ---------- Dataset Analysis: two-column stats ---------- */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+  margin: 8px 0 8px;
+}
+
+.stat-block .sub-title {
+  margin-top: 0;
+}
+
+.stat-block .sub-title + .table-scroll {
+  margin-top: 0;
+}
+
+.stat-block .table-scroll + .sub-title {
+  margin-top: 26px;
+}
+
+.stat-block .table-scroll {
+  margin: 0;
+}
+
+/* Push the "Collection Regions" table to the bottom so it aligns
+   with the bottom of the taller "Key Statistics" table in the right column. */
+.stat-block--split {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-block--split .table-scroll:last-child {
+  margin-top: auto;
+}
+
+.stat-block .data-table {
+  min-width: 0;
+  width: 100%;
+}
+
+.stats-table thead th:last-child,
+.stats-table tbody td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.split-table {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ---------- Figure note ---------- */
+
+.figure-note {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: -12px;
+  margin-bottom: 8px;
+}
+
+/* ---------- Sub-titles & BibTeX ---------- */
+
+.sub-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 28px 0 8px;
+}
+
+.bibtex {
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 22px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: #444;
+  margin: 16px 0 8px;
+  line-height: 1.6;
+}
+
+.bibtex code {
+  font-family: inherit;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  margin-top: 72px;
+  border-top: 1px solid var(--border);
+  padding: 28px 24px 36px;
+  text-align: center;
+}
+
+.footer-brand {
+  font-weight: 600;
+  color: var(--text-strong);
+  margin: 0 0 10px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .project-title {
+    font-size: 40px;
+  }
+
+  .paper-title {
+    font-size: 20px;
+  }
+
+  .authors {
+    font-size: 15px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 4px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+
+  .abstract {
+    padding: 18px 20px;
+  }
+}

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TinyWOD — A Tiny Object Detection Dataset for High-Altitude Open-Water Search and Rescue</title>
+  <meta name="description" content="TinyWOD: a tiny object detection dataset for high-altitude open-water search and rescue. 11,359 images, 19,505 annotated lifebuoy instances, Beihang University." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <span class="nav-brand">TinyWOD</span>
+      <ul class="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#data-collection">Data Collection</a></li>
+        <li><a href="#dataset-analysis">Dataset Analysis</a></li>
+        <li><a href="#visualization">Visualization</a></li>
+        <li><a href="#benchmark">Benchmark</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#authors">Authors</a></li>
+        <li><a href="#citation">Citation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ============ Section 1: Header ============ -->
+    <header id="overview" class="hero section">
+      <h1 class="project-title">TinyWOD</h1>
+      <h2 class="paper-title">A Tiny Object Detection Dataset for High-Altitude Open-Water Search and Rescue</h2>
+
+      <p class="authors">
+        Hui Xu, Chenfei Hou, Henglai Wei, Hao Wang, Yidong Jin, Xiulin Niu, Haoyang Zhang, Hui Zhang
+      </p>
+      <p class="affiliation">Beihang University</p>
+
+      <div class="button-row">
+        <a class="btn" href="paper.pdf" target="_blank" rel="noopener">Paper</a>
+        <a class="btn" href="https://www.kaggle.com/datasets/songx001/tinywod" target="_blank" rel="noopener">Dataset</a>
+        <a class="btn" href="https://github.com/SongX-1/TinyWOD-Benchmark" target="_blank" rel="noopener">Code</a>
+      </div>
+
+      <div class="abstract">
+        <p>
+          Large aerial platforms often operate above 1.5&nbsp;km to improve the efficiency of open-water
+          search and rescue (OW-SAR). However, long imaging distances, wide fields of view, and limited
+          sensor resolution reduce objects to a few pixels, increasing their susceptibility to environmental
+          interference and making detection harder than for conventional small objects. To our knowledge,
+          existing datasets focus on low-altitude scenarios and do not support automatic detection at
+          1.5–2.0&nbsp;km. We therefore present <strong>TinyWOD</strong>, a tiny object detection dataset for
+          high-altitude OW-SAR using lifebuoys as detection targets. It comprises 11,359 manually annotated
+          images and 19,505 annotated instances spanning diverse environments, lighting conditions, water
+          colors, and surface ripples. Compared with existing datasets, TinyWOD contains much smaller objects
+          and a substantially higher proportion of tiny instances; its average equivalent side length (ESL) is
+          12.7 pixels, with 76.96% of instances having ESLs below 15 pixels, reflecting actual high-altitude
+          water-rescue imaging conditions. We define AP<sub>tiny</sub>, a tiny object detection metric, and
+          benchmark mainstream and state-of-the-art networks using this and conventional metrics. All
+          evaluated networks effectively detect tiny waterborne objects, demonstrating TinyWOD&rsquo;s
+          reusability and utility. We expect this dataset to support research on tiny object detection in
+          high-altitude OW-SAR.
+        </p>
+      </div>
+    </header>
+
+    <!-- ============ Data Collection ============ -->
+    <section id="data-collection" class="section">
+      <h2 class="section-title">Data Collection</h2>
+
+      <p>
+        Considering that targets in high-altitude OW-SAR imagery occupy only a few pixels and that UAV
+        flights at such altitudes entail substantial costs and are subject to strict airspace restrictions,
+        we reduced the physical dimensions of lifebuoys and acquired images at shorter viewing distances to
+        approximate the projected size of full-sized lifebuoys. To determine the appropriate target size,
+        camera parameters, and acquisition distance, the pinhole camera model was used to relate target size
+        to acquisition geometry. Based on these relationships, lifebuoy scales of 10%–100% were evaluated,
+        with <strong>11%</strong> selected as the closest approximation to the apparent size of a standard
+        72&nbsp;cm lifebuoy viewed from approximately 1.5&nbsp;km. In this way, the apparent object scale is
+        reproduced using scaled-down targets and matched imaging geometry rather than by capturing imagery
+        directly from a 1.5&nbsp;km altitude.
+      </p>
+
+      <p>
+        Images were collected using two types of devices to capture different viewing perspectives. UAVs
+        equipped with downward-facing cameras operated at altitudes of up to 120&nbsp;m above the water
+        surface under approved flight permits, capturing top-down views. Fixed cameras mounted on dikes
+        5&nbsp;m above the water surface captured oblique views from the shore. Both camera setups used zoom
+        lenses, whose focal lengths were adjusted so that most targets had a projected object size of roughly
+        3–15 pixels. All data were collected from water bodies in <strong>Hangzhou, Jiaxing, and
+        Shaoxing</strong>, Zhejiang Province, China, which provided different water colors and surface
+        conditions.
+      </p>
+
+      <figure class="figure">
+        <img src="figures/datacollection.png" alt="Data collection setup of the TinyWOD dataset" loading="lazy" />
+        <figcaption>Data collection setup of the TinyWOD dataset.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ Dataset Analysis ============ -->
+    <section id="dataset-analysis" class="section">
+      <h2 class="section-title">Dataset Analysis</h2>
+
+      <p>
+        TinyWOD contains <strong>11,359 images</strong> at a resolution of 1920&times;1080 and
+        <strong>19,505 annotated lifebuoy instances</strong> in a single object category. The dataset was
+        partitioned into training, validation, and test sets at a ratio of 7:2:1, containing 7,828, 2,222,
+        and 1,309 images, respectively. The split was stratified by water body, recording time, and
+        acquisition platform to ensure that each subset contained images from different water-surface
+        environments and observation conditions. All images extracted from the same video were assigned to
+        a single subset to reduce the risk of temporal overlap between splits and support more reliable
+        comparisons among detection methods.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-block stat-block--split">
+          <h3 class="sub-title">Dataset Split</h3>
+          <div class="table-scroll">
+            <table class="data-table split-table">
+              <thead>
+                <tr>
+                  <th>Split</th>
+                  <th>Images</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Training</td><td>7,828</td></tr>
+                <tr><td>Validation</td><td>2,222</td></tr>
+                <tr><td>Test</td><td>1,309</td></tr>
+                <tr class="total-row"><td>Total</td><td>11,359</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="sub-title">Collection Regions</h3>
+          <div class="table-scroll">
+            <table class="data-table split-table">
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Images</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Hangzhou</td><td>2,212</td></tr>
+                <tr><td>Jiaxing</td><td>7,007</td></tr>
+                <tr><td>Shaoxing</td><td>2,140</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <h3 class="sub-title">Key Statistics</h3>
+          <div class="table-scroll">
+            <table class="data-table stats-table">
+              <thead>
+                <tr>
+                  <th>Statistic</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Annotated instances</td><td>19,505</td></tr>
+                <tr><td>Object categories</td><td>1 (lifebuoy)</td></tr>
+                <tr><td>Average equivalent side length (ESL)</td><td>12.7 px</td></tr>
+                <tr><td>Instances with ESL &lt; 15 px</td><td>76.96%</td></tr>
+                <tr><td>Mean bounding-box width</td><td>12.96 px</td></tr>
+                <tr><td>Mean bounding-box height</td><td>12.53 px</td></tr>
+                <tr><td>Images with at least one object</td><td>93.47%</td></tr>
+                <tr><td>Negative images (no object)</td><td>6.53%</td></tr>
+                <tr><td>Images with two or more objects</td><td>23.27%</td></tr>
+                <tr><td>Maximum objects in a single image</td><td>15</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Hangzhou featured green water, with footage recorded during both daytime and nighttime. Jiaxing was
+        characterized by yellow water and rough surface conditions, while Shaoxing had blue water. Footage
+        from Jiaxing and Shaoxing was collected during daytime.
+      </p>
+
+      <p>
+        Of the images in TinyWOD, 93.47% contain at least one annotated object and the remaining 6.53% are
+        negative images. Most images contain exactly one object, while 23.27% contain two or more, with a
+        maximum of 15 objects in a single image. To characterize the spatial distribution of objects, the
+        centers of the annotated bounding boxes were mapped onto a common 1920&times;1080 image plane using
+        20&times;20-pixel grid cells. The horizontal coordinates range from 2.5 to 1918.0 pixels and the
+        vertical coordinates from 3.0 to 1078.5 pixels, with the mean object center at (975.72, 552.68)
+        pixels lying close to the geometric center of the frame. The object-size distribution is
+        concentrated at small scales, and the mean bounding-box width and height are 12.96 and 12.53 pixels,
+        respectively.
+      </p>
+
+      <p>
+        The annotations are provided in COCO, YOLO, and Pascal VOC formats to support training and
+        evaluation with the corresponding object detection frameworks without additional format conversion:
+      </p>
+      <ul class="format-list">
+        <li><strong>COCO</strong> JSON</li>
+        <li><strong>YOLO</strong> TXT</li>
+        <li><strong>Pascal VOC</strong> XML</li>
+      </ul>
+
+      <figure class="figure">
+        <img src="figures/figure3.png" alt="Statistical analysis of the TinyWOD dataset" loading="lazy" />
+        <figcaption>Statistical analysis of the TinyWOD dataset.</figcaption>
+      </figure>
+
+      <p class="figure-note">
+        Spatial and bounding-box size distributions in TinyWOD: (a) spatial distribution of object centers
+        aggregated across the entire dataset (log scale), (b) distribution of object-center x-coordinates,
+        (c) distribution of object-center y-coordinates, (d) joint distribution of bounding-box width and
+        height, (e) distribution of bounding-box widths, and (f) distribution of bounding-box heights.
+      </p>
+    </section>
+
+    <!-- ============ Data Visualization ============ -->
+    <section id="visualization" class="section">
+      <h2 class="section-title">Data Visualization</h2>
+
+      <p class="section-intro">
+        Visual examples illustrating the characteristics and challenges of tiny object detection in
+        open-water environments.
+      </p>
+
+      <figure class="figure figure-wide">
+        <img src="figures/comparison.png" alt="Visualization and comparison of tiny object detection scenarios in TinyWOD" loading="lazy" />
+        <figcaption>Visualization and comparison of tiny object detection scenarios in TinyWOD.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ Benchmark ============ -->
+    <section id="benchmark" class="section">
+      <h2 class="section-title">Benchmark</h2>
+
+      <p>
+        To assess the usability of TinyWOD for training and evaluating object detectors, seven
+        representative detectors spanning one-stage, two-stage, and end-to-end Transformer methods were
+        benchmarked on an NVIDIA GeForce RTX 5090 GPU. All detectors were evaluated using the COCO protocol,
+        and average precision (AP), AP<sub>50</sub>, AP<sub>75</sub>, AP<sub>small</sub>, and average recall
+        (AR) were used to assess detection performance.
+      </p>
+
+      <p>
+        Because 99.75% of TinyWOD&rsquo;s instances have a bounding-box area below the 32<sup>2</sup>
+        pixels<sup>2</sup> threshold, AP<sub>small</sub> nearly coincides with AP and does not isolate the
+        tiny objects at the core of this dataset. We therefore define an additional metric,
+        AP<sub>tiny</sub>, restricted to objects whose annotated bounding box has ESL
+        <em>s</em>&nbsp;=&nbsp;&radic;(<em>wh</em>)&nbsp;&lt;&nbsp;15 pixels, where <em>w</em> and
+        <em>h</em> are the annotated width and height in the original image coordinate system.
+      </p>
+
+      <div class="table-scroll">
+        <table class="data-table benchmark-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Params (M)</th>
+              <th>GFLOPs</th>
+              <th>FPS</th>
+              <th>AP</th>
+              <th>AP<sub>50</sub></th>
+              <th>AP<sub>75</sub></th>
+              <th>AP<sub>small</sub></th>
+              <th>AP<sub>tiny</sub></th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>AR<sub>100</sub></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>YOLO26s</td>
+              <td class="best">9.95</td>
+              <td class="best">22.5</td>
+              <td class="best">407.3</td>
+              <td>0.404</td>
+              <td>0.689</td>
+              <td>0.436</td>
+              <td>0.403</td>
+              <td>0.320</td>
+              <td>0.650</td>
+              <td>0.558</td>
+              <td>0.492</td>
+            </tr>
+            <tr>
+              <td>YOLO26x</td>
+              <td>55.64</td>
+              <td>209.1</td>
+              <td>220.9</td>
+              <td>0.443</td>
+              <td>0.723</td>
+              <td>0.494</td>
+              <td>0.442</td>
+              <td>0.367</td>
+              <td class="best">0.789</td>
+              <td>0.595</td>
+              <td>0.513</td>
+            </tr>
+            <tr>
+              <td>VMINet-B + Faster R-CNN</td>
+              <td>49.12</td>
+              <td>97.3</td>
+              <td>42.3</td>
+              <td>0.282</td>
+              <td>0.587</td>
+              <td>0.252</td>
+              <td>0.281</td>
+              <td>0.171</td>
+              <td>0.697</td>
+              <td>0.538</td>
+              <td>0.351</td>
+            </tr>
+            <tr>
+              <td>DINO-R50</td>
+              <td>46.82</td>
+              <td>983.9</td>
+              <td>45.1</td>
+              <td>0.386</td>
+              <td>0.713</td>
+              <td>0.368</td>
+              <td>0.385</td>
+              <td>0.300</td>
+              <td>0.476</td>
+              <td>0.416</td>
+              <td>0.501</td>
+            </tr>
+            <tr>
+              <td>H-DETR-R50</td>
+              <td>47.78</td>
+              <td>343.4</td>
+              <td>25.0</td>
+              <td>0.431</td>
+              <td>0.788</td>
+              <td>0.418</td>
+              <td>0.430</td>
+              <td>0.351</td>
+              <td>0.787</td>
+              <td class="best">0.669</td>
+              <td>0.553</td>
+            </tr>
+            <tr>
+              <td>RT-DETR-R50</td>
+              <td>42.73</td>
+              <td>68.5</td>
+              <td>110.6</td>
+              <td>0.423</td>
+              <td>0.806</td>
+              <td>0.422</td>
+              <td>0.422</td>
+              <td>0.341</td>
+              <td>0.505</td>
+              <td>0.452</td>
+              <td>0.518</td>
+            </tr>
+            <tr>
+              <td>OWRT-DETR</td>
+              <td>44.29</td>
+              <td>156.2</td>
+              <td>170.7</td>
+              <td class="best">0.512</td>
+              <td class="best">0.814</td>
+              <td class="best">0.572</td>
+              <td class="best">0.512</td>
+              <td class="best">0.440</td>
+              <td>0.665</td>
+              <td>0.559</td>
+              <td class="best">0.596</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="figure figure-wide">
+        <img src="figures/visualization.png" alt="Benchmark results and qualitative evaluation on TinyWOD" loading="lazy" />
+        <figcaption>Benchmark results and qualitative evaluation on TinyWOD.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ Download & Usage ============ -->
+    <section id="download" class="section">
+      <h2 class="section-title">Download &amp; Usage</h2>
+
+      <p>
+        The TinyWOD dataset is available at Kaggle, and the benchmark and evaluation code used to produce
+        the results in the Technical Validation is available at GitHub.
+      </p>
+
+      <div class="button-row">
+        <a class="btn" href="https://www.kaggle.com/datasets/songx001/tinywod" target="_blank" rel="noopener">Download Dataset</a>
+        <a class="btn" href="https://github.com/SongX-1/TinyWOD-Benchmark" target="_blank" rel="noopener">Benchmark Code</a>
+      </div>
+
+      <h3 class="sub-title">Usage Notes</h3>
+      <p>Researchers should use the provided training, validation, and test splits when comparing detection methods to ensure the fairness of the evaluation.</p>
+
+      <h3 class="sub-title">License</h3>
+      <p>The dataset is available under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.</p>
+    </section>
+
+    <!-- ============ Authors ============ -->
+    <section id="authors" class="section">
+      <h2 class="section-title">Authors</h2>
+
+      <div class="authors-grid">
+        <div class="author-card">
+          <img class="author-photo" src="figures/huixu.jpg" alt="Hui Xu" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Hui Xu</h3>
+            <p class="author-bio">
+              Hui Xu received the B.Mgt. degree in Big Data Management and Application from Beijing University of
+              Chinese Medicine, Beijing, China, in 2025. He is currently an M.Eng. candidate at Beihang
+              University, Beijing, China. His research interests focus on computer vision in complex scenarios.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/chenfeihou.jpg" alt="Chenfei Hou" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Chenfei Hou</h3>
+            <p class="author-bio">
+              Chenfei Hou received his B.S. degree from the Department of Vehicle Engineering, Lanzhou Jiaotong
+              University, Lanzhou, China, in 2023. He is currently a Ph.D. student at Beihang University,
+              Beijing, China. His research focuses on field robotics and the application of LLMs in robotics.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/henglaiwei.jpg" alt="Henglai Wei" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Henglai Wei</h3>
+            <p class="author-bio">
+              Henglai Wei received his B.S. and M.Sc. degrees in control theory from Northwestern Polytechnical
+              University in 2014 and 2017, respectively, and his Ph.D. in mechanical engineering from the
+              University of Victoria, Canada, in 2022. After working as a Research Fellow at Nanyang
+              Technological University, he is now an Associate Professor at the School of Transportation
+              Science and Engineering, Beihang University, China. His research interests include autonomous
+              intelligent systems, field robotics, and model predictive control.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/haowang.jpg" alt="Hao Wang" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Hao Wang</h3>
+            <p class="author-bio">
+              Hao Wang received the B.S. degree in Data Science and Big Data Technology from Zhejiang University of
+              Finance and Economics, Hangzhou, China, in 2026. He is currently an M.S. Candidate with Beihang
+              University, Beijing, China. His research interests include low-altitude multi-source perception,
+              multi-source information fusion, and intelligent perception with machine learning and large
+              language models.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/yidongjin.jpg" alt="Yidong Jin" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Yidong Jin</h3>
+            <p class="author-bio">
+              Yidong Jin is currently an M.Eng. candidate at Beihang University, Beijing, China.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/xiulinniu.jpg" alt="Xiulin Niu" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Xiulin Niu</h3>
+            <p class="author-bio">
+              Xiulin Niu is currently an M.Eng. candidate at Beihang University, Beijing, China.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/haoyangzhang.jpg" alt="Haoyang Zhang" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Haoyang Zhang</h3>
+            <p class="author-bio">
+              Haoyang Zhang is currently an M.Eng. candidate at Beihang University, Beijing, China.
+            </p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img class="author-photo" src="figures/huizhang.jpg" alt="Hui Zhang" loading="lazy" />
+          <div class="author-info">
+            <h3 class="author-name">Hui Zhang</h3>
+            <p class="author-bio">
+              Hui Zhang (Fellow, IEEE) received his B.Sc. degree in mechanical design, manufacturing and
+              automation from Harbin Institute of Technology, Weihai, China, in 2006, his M.Sc. degree in
+              automotive engineering from Jilin University, Changchun, China, in 2008, and his Ph.D. degree in
+              mechanical engineering from the University of Victoria, Canada, in 2012. He has received multiple
+              awards, including the 2017 IEEE Transactions on Fuzzy Systems Outstanding Paper Award, the 2018
+              SAE Ralph R. Teetor Educational Award, the IEEE Vehicular Technology Society 2019 Best Vehicular
+              Electronics Paper Award, and the 2019 SAE International Intelligent and Connected Vehicles
+              Symposium Best Paper Award. He is a member of SAE International and ASME.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Citation ============ -->
+    <section id="citation" class="section">
+      <h2 class="section-title">Citation</h2>
+
+      <p>If you find TinyWOD useful in your research, please cite our paper.</p>
+
+      <pre class="bibtex"><code>Official citation information will be updated upon publication.</code></pre>
+    </section>
+
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer">
+    <p class="footer-brand">TinyWOD Dataset &middot; Beihang University</p>
+    <div class="footer-links">
+      <a href="https://www.kaggle.com/datasets/songx001/tinywod" target="_blank" rel="noopener">Dataset</a>
+      <a href="https://github.com/SongX-1/TinyWOD-Benchmark" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:huizhang285@buaa.edu.cn">Contact</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
