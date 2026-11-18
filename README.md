@@ -14,7 +14,6 @@ TinyWOD-Website/
 ├── index.html        # single-page site
 ├── style.css         # styles
 ├── script.js         # minimal vanilla JS (nav highlighting)
-├── paper.pdf         # full paper (linked by the "Paper" button)
 ├── figures/
 │   ├── datacollection.png
 │   ├── figure3.png
